@@ -1,0 +1,18 @@
+---
+fixtures:
+  forge_modules:
+    ruby_task_helper:
+      repo: "puppetlabs/ruby_task_helper"
+      ref: "0.5.1"
+    inifile:
+      repo: "puppetlabs/inifile"
+      ref: "4.2.0"
+  repositories:
+    stdlib: 'https://github.com/puppetlabs/puppetlabs-stdlib'
+    translate: 'https://github.com/puppetlabs/puppetlabs-translate'
+    facts: 'https://github.com/puppetlabs/puppetlabs-facts'
+    puppet_agent: 'https://github.com/puppetlabs/puppetlabs-puppet_agent'
+    provision: 'https://github.com/puppetlabs/provision'
+    puppet_conf: 'https://github.com/puppetlabs/puppet_conf'
+    pe_event_forwarding: 'https://github.com/puppetlabs/puppetlabs-pe_event_forwarding'
+    deploy_pe: 'https://github.com/jarretlavallee/puppet-deploy_pe'
