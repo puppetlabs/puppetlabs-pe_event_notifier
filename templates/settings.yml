@@ -1,0 +1,111 @@
+# managed by event_notifier module
+---
+<% if $event_notifier::url { -%>
+"url" : "<%= $event_notifier::url %>"
+<% } -%>
+"facts.allowlist" :
+<% $event_notifier::facts_allowlist.each |$fact| {-%>
+        - <%= $fact %>
+<% } -%>
+<% unless $event_notifier::facts_blocklist == undef { -%>
+"facts.blocklist" :
+<% [$event_notifier::facts_blocklist].flatten.each |$fact| { -%>
+        - <%= $fact %>
+<% } -%>
+<% } -%>
+<% if $event_notifier::pe_console { -%>
+"pe_console" : "<%= $event_notifier::pe_console %>"
+<% } -%>
+<% if $event_notifier::timeout { -%>
+"timeout" : "<%= $event_notifier::timeout %>"
+<% } -%>
+<% if $event_notifier::ssl_ca { -%>
+"ssl_ca" : "<%= $event_notifier::ssl_ca %>"
+<% } -%>
+<% if $event_notifier::include_system_cert_store { -%>
+"include_system_cert_store" : "<%= $event_notifier::include_system_cert_store %>"
+<% } -%>
+<% if $event_notifier::record_event { -%>
+"record_event" : "<%= $event_notifier::record_event %>"
+<% } -%>
+<% if $event_notifier::url_summary { -%>
+"url_summary" : "<%= $event_notifier::url_summary %>"
+<% } -%>
+<% if $event_notifier::url_facts { -%>
+"url_facts" : "<%= $event_notifier::url_facts %>"
+<% } -%>
+<% if $event_notifier::url_metrics { -%>
+"url_metrics" : "<%= $event_notifier::url_metrics %>"
+<% } -%>
+<% if $event_notifier::url_events { -%>
+"url_events" : "<%= $event_notifier::url_events %>"
+<% } -%>
+<% if $event_notifier::include_logs_status { -%>
+"include_logs_status" :
+<% $event_notifier::include_logs_status.each |$status| {-%>
+        - <%= $status %>
+<% } -%>
+<% } -%>
+<% if $event_notifier::include_logs_catalog_failure { -%>
+"include_logs_catalog_failure" : "<%= $event_notifier::include_logs_catalog_failure %>"
+<% } -%>
+<% if $event_notifier::include_logs_corrective_change { -%>
+"include_logs_corrective_change" : "<%= $event_notifier::include_logs_corrective_change %>"
+<% } -%>
+<% if $event_notifier::include_resources_status { -%>
+"include_resources_status" :
+<% $event_notifier::include_resources_status.each |$status| {-%>
+        - <%= $status %>
+<% } -%>
+<% } -%>
+<% if $event_notifier::include_resources_corrective_change { -%>
+"include_resources_corrective_change" : "<%= $event_notifier::include_resources_corrective_change %>"
+<% } -%>
+<% if $event_notifier::summary_resources_format { -%>
+"summary_resources_format" : "<%= $event_notifier::summary_resources_format %>"
+<% } -%>
+<% if $event_notifier::disabled { -%>
+"disabled" : "<%= $event_notifier::disabled %>"
+<% } -%>
+<% if $event_notifier::only_changes { -%>
+"only_changes" : "<%= $event_notifier::only_changes %>"
+<% } -%>
+<% if $event_notifier::events_reporting_enabled { -%>
+"events_reporting_enabled" : "<%= $event_notifier::events_reporting_enabled %>"
+"event_types" : "<%= $event_notifier::event_types %>"
+<% } -%>
+<% if $event_notifier::orchestrator_data_filter { -%>
+"orchestrator_data_filter" :
+<% $event_notifier::orchestrator_data_filter.each |$subset| {-%>
+        - <%= $subset %>
+<% } -%>
+<% } -%>
+<% if $event_notifier::rbac_data_filter { -%>
+"rbac_data_filter" :
+<% $event_notifier::rbac_data_filter.each |$subset| {-%>
+        - <%= $subset %>
+<% } -%>
+<% } -%>
+<% if $event_notifier::classifier_data_filter { -%>
+"classifier_data_filter" :
+<% $event_notifier::classifier_data_filter.each |$subset| {-%>
+        - <%= $subset %>
+<% } -%>
+<% } -%>
+<% if $event_notifier::pe_console_data_filter { -%>
+"pe-console_data_filter" :
+<% $event_notifier::pe_console_data_filter.each |$subset| {-%>
+        - <%= $subset %>
+<% } -%>
+<% } -%>
+<% if $event_notifier::code_manager_data_filter { -%>
+"code-manager_data_filter" :
+<% $event_notifier::code_manager_data_filter.each |$subset| {-%>
+        - <%= $subset %>
+<% } -%>
+<% } -%>
+<% if $facts['fips_enabled'] { -%>
+"fips_enabled" : "true"
+"certificate_revocation" : <%= $event_notifier::fips_crl_check %>
+"verify_peer" : <%= $event_notifier::fips_verify_peer %>
+<% } -%>
