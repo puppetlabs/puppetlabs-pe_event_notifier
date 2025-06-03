@@ -33,31 +33,42 @@ class Puppet::Application::Event_notifier < Puppet::Application
 
   def send_pe_metrics(data, sourcetype)
     timestamp = sourcetypetime(data['timestamp'])
-    event_template = {
-      'time' => timestamp,
-      'sourcetype' => sourcetype.to_s,
-      'event' => {},
+    event = {
+      "labels": {
+        "alertname": "FakeHighCPU",
+        "severity": "critical",
+        "instance": "fake-instance:1234"
+      }
+      "annotations": {
+        "summary": "Puppet Enterprise Metrics",
+      },   
+      "startsAt": "#{'timestamp'}"
     }
-    data['servers'].each_key do |server|
-      name = get_name(server.to_s)
-      content = data['servers'][server.to_s]
-      content.each_key do |serv|
-        event = event_template.clone
-        event['host'] = name
-        if content[serv.to_s].is_a?(Array)
-          event['event'] = {}
-          event['event']['metrics'] = []
-          content[serv.to_s].each do |metric|
-            event['event']['metrics'] << { metric['name'].to_s => metric['value'].to_f }
-          end
-        else
-          event['event'] = content[serv.to_s]
-        end
-        event['event']['pe_console'] = pe_console
-        event['event']['pe_service'] = serv.to_s
-        Puppet.info 'Submitting metrics to Splunk'
-        submit_request(event)
-      end
+    events = []
+    events.push(
+      event
+    )
+    submit_request(events)
+    # data['servers'].each_key do |server|
+    #   name = get_name(server.to_s)
+    #   content = data['servers'][server.to_s]
+    #   content.each_key do |serv|
+    #     event = event_template.clone
+    #     event['host'] = name
+    #     if content[serv.to_s].is_a?(Array)
+    #       event['event'] = {}
+    #       event['event']['metrics'] = []
+    #       content[serv.to_s].each do |metric|
+    #         event['event']['metrics'] << { metric['name'].to_s => metric['value'].to_f }
+    #       end
+    #     else
+    #       event['event'] = content[serv.to_s]
+    #     end
+    #     event['event']['pe_console'] = pe_console
+    #     event['event']['pe_service'] = serv.to_s
+    #     Puppet.info 'Submitting metrics to Splunk'
+      #   submit_request(events)
+      # end
     end
   end
 
